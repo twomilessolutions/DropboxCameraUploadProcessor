@@ -6,8 +6,6 @@ from CameraUploadsConfig import CameraUploadConfig
 from colorama import init, Fore
 init()
 
-# C:\Users\Jeff Miles\OneDrive\Desktop\test folder - will be different on different computers
-
 def main():
     camera_upload_config = CameraUploadConfig()
     camera_uploads_directory = camera_upload_config.GetDirectory()
