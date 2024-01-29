@@ -28,6 +28,7 @@ class FileProcessor:
                 print(Fore.YELLOW + self.directory + filename + " skipped...")
         
         print(Fore.WHITE + "Processing directory: " + self.directory + " completed.")
+        choice = input(Fore.GREEN + "\n\nPress <Enter> to exit...")
 
     def processFile(self, filename):
         print(Fore.BLUE + "processFile() called for file " + self.directory + filename)
@@ -47,6 +48,26 @@ class FileProcessor:
                 os.makedirs(newDirectory)
             
             print(Fore.BLUE + "moving file: " + filename)
-            os.rename(self.directory + filename, newDirectory + filename)
+            self.moveFile(self.directory, filename, newDirectory)
         except Exception as ex:
             print(Fore.RED + "Error processing file: " + filename + "\nException: " + ex.__str__)
+            choice = input(Fore.RED + "Press <Enter> to exit...")
+
+    def moveFile(self, oldDirectory, filename, newDirectory):
+        try:
+            if not os.path.exists(os.path.join(newDirectory,filename)):
+                 os.rename(os.path.join(oldDirectory, filename), os.path.join(newDirectory, filename))
+                 print(Fore.BLUE + "Moved file: " + os.path.join(oldDirectory,filename) + " to: " + os.path.join(newDirectory, filename))
+            else:
+                base, extension = os.path.splitext(filename)
+                ii = 1
+                while True:
+                    newFilename = base + "_" + str(ii) + extension
+                    if not os.path.exists(os.path.join(newDirectory, newFilename)):
+                        os.rename(os.path.join(oldDirectory,filename),os.path.join(newDirectory, newFilename))
+                        print(Fore.BLUE + "Moved file: " + os.path.join(oldDirectory,filename) + " to: " + os.path.join(newDirectory, newFilename))
+                        break
+                    ii += 1
+        except Exception as ex:
+            print(Fore.RED + "Error processing file: " + filename + "\nException: " + ex.__str__)
+            choice = input(Fore.RED + "\n\nPress <Enter> to acknowledge...")
