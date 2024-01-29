@@ -46,7 +46,15 @@ class Handler(FileSystemEventHandler):
             file_processor.setDirectory(camera_uploads_directory)
             truncated_filename = event.src_path.replace(camera_uploads_directory, "")
             print(Fore.BLUE + "truncated filename: " + truncated_filename)
-            file_processor.processFile(truncated_filename)
+            processed = False
+            while not processed:
+                try:
+                    file_processor.processFile(truncated_filename)
+                    processed = True
+                except Exception as ex:
+                    print(Fore.RED + "Error processing file: " + truncated_filename + "\nwaiting to retry...")
+                    time.sleep(5)
+                    print(Fore.YELLOW + "Retrying file: " + truncated_filename)
 
         elif event.event_type == 'modified':
             print(Fore.CYAN + "Received modified event for: " + event.src_path)
