@@ -59,6 +59,9 @@ class Handler(FileSystemEventHandler):
         elif event.event_type == 'modified':
             print(Fore.CYAN + "Received modified event for: " + event.src_path)
 
+        elif event.event_type == 'deleted':
+            print(Fore.MAGENTA + "Received deleted event for: " + event.src_path)
+
 if __name__ == '__main__':
     w = Watcher()
     w.run()
