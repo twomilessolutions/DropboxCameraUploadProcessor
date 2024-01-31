@@ -1,5 +1,6 @@
 from os import truncate
 import time
+import datetime
 from configparser import ConfigParser
 from FileProcessor import FileProcessor
 from CameraUploadsConfig import CameraUploadConfig
@@ -34,11 +35,14 @@ class Handler(FileSystemEventHandler):
 
     @staticmethod
     def on_any_event(event):
+        now = datetime.datetime.now()
+        nowString = "[" + now.strftime("%Y-%m-%d %H:%M:%S") + "] "
+        
         if event.is_directory:
             return None
 
         elif event.event_type == 'created':
-            print(Fore.BLUE + "Received created event for: " + event.src_path)
+            print(Fore.BLUE + nowString + "Received created event for: " + event.src_path)
             camera_upload_config = CameraUploadConfig()
             camera_uploads_directory = camera_upload_config.GetDirectory()
 
@@ -57,10 +61,10 @@ class Handler(FileSystemEventHandler):
                     print(Fore.YELLOW + "Retrying file: " + truncated_filename)
 
         elif event.event_type == 'modified':
-            print(Fore.CYAN + "Received modified event for: " + event.src_path)
+            print(Fore.CYAN + nowString + "Received modified event for: " + event.src_path)
 
         elif event.event_type == 'deleted':
-            print(Fore.MAGENTA + "Received deleted event for: " + event.src_path)
+            print(Fore.MAGENTA + nowString + "Received deleted event for: " + event.src_path)
 
 if __name__ == '__main__':
     w = Watcher()
