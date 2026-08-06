@@ -12,4 +12,4 @@ This set of Python scripts does the following:
 
 To use these files, I recommend creating a shortcut to them and placing the shortcut in your startup directory.
 
-© 2021-2024 [Two Miles Solutions](https://www.twomilessolutions.com), All Rights Reserved.
+© 2021-2026 [Two Miles Solutions](https://www.twomilessolutions.com), All Rights Reserved.

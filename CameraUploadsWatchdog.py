@@ -4,9 +4,9 @@ import datetime
 from configparser import ConfigParser
 from FileProcessor import FileProcessor
 from CameraUploadsConfig import CameraUploadConfig
-from watchdog.observers import Observer
+from watchdog.observers import Observer #pip install watchdog
 from watchdog.events import FileSystemEventHandler
-from colorama import init, Fore
+from colorama import init, Fore #pip install colorama
 init()
 
 class Watcher:
