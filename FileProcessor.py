@@ -41,7 +41,7 @@ class FileProcessor:
             filenameArray = filename.split("-")
             year = filenameArray[0]
             month = filenameArray[1]
-            newDirectory = self.directory + year + "\\" + month + "\\"
+            newDirectory = os.path.join(self.directory, year, month)
 
             if not os.path.isdir(newDirectory):
                 print(Fore.BLUE + "Directory " + newDirectory + " does not exist, creating...")
